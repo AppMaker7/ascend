@@ -4,6 +4,10 @@ A mobile-first self-improvement RPG that combines habit building, focus tools, w
 
 ## Current features
 - Daily quests with XP rewards and the main Ascend rank ladder
+- Automatic daily quest rollover and weekly habit check-in reset
+- Activity-based streaks, seven-day momentum chart, and consistency milestones
+- Focus sessions that award XP based on completed session length
+- Add and remove quests and habits as routines change
 - Habit check-ins and weekly rhythm indicators
 - Focus timer (planning tool only; it does not block other Android apps)
 - Personalized workout setup based on goals, experience, equipment, schedule, and session length
