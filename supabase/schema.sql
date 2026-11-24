@@ -95,6 +95,36 @@ create trigger on_auth_user_created
 after insert on auth.users
 for each row execute function public.handle_new_user();
 
+
+-- Basic anti-spam limit: at most 15 friend requests per account per rolling day.
+create or replace function public.limit_friend_requests()
+returns trigger
+language plpgsql
+security definer
+set search_path = ''
+as $
+declare
+  recent_count integer;
+begin
+  if new.status <> 'pending' then
+    raise exception 'New friend requests must start as pending';
+  end if;
+  select count(*) into recent_count
+  from public.friend_requests
+  where sender_id = new.sender_id
+    and created_at > now() - interval '24 hours';
+  if recent_count >= 15 then
+    raise exception 'Daily friend request limit reached. Try again tomorrow.';
+  end if;
+  return new;
+end;
+$;
+
+drop trigger if exists friend_requests_rate_limit on public.friend_requests;
+create trigger friend_requests_rate_limit
+before insert on public.friend_requests
+for each row execute function public.limit_friend_requests();
+
 -- When a request is accepted, create a canonical friendship pair.
 create or replace function public.sync_accepted_friendship()
 returns trigger language plpgsql security definer set search_path = ''
