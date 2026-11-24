@@ -102,7 +102,7 @@ returns trigger
 language plpgsql
 security definer
 set search_path = ''
-as $
+as $$
 declare
   recent_count integer;
 begin
@@ -118,7 +118,7 @@ begin
   end if;
   return new;
 end;
-$;
+$$;
 
 drop trigger if exists friend_requests_rate_limit on public.friend_requests;
 create trigger friend_requests_rate_limit
@@ -238,7 +238,7 @@ returns void
 language plpgsql
 security definer
 set search_path = ''
-as $
+as $$
 declare
   v_user_id uuid := auth.uid();
   v_total bigint := greatest(coalesce(p_total_xp, 0), 0);
@@ -271,7 +271,7 @@ begin
   set total_xp = v_total, rank_name = v_rank, rank_division = v_division_name
   where id = v_user_id;
 end;
-$;
+$$;
 
 revoke all on function public.save_player_state(jsonb, bigint) from public;
 grant execute on function public.save_player_state(jsonb, bigint) to authenticated;
