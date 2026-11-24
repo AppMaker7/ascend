@@ -154,18 +154,19 @@ alter table public.friend_requests enable row level security;
 alter table public.friendships enable row level security;
 
 -- Authenticated users can find profiles by username and see only public rank fields.
+revoke all on public.profiles from anon, authenticated;
+revoke all on public.player_data from anon, authenticated;
+revoke all on public.friend_requests from anon, authenticated;
+revoke all on public.friendships from anon, authenticated;
+
 grant select (id, username, display_name, total_xp, rank_name, rank_division, created_at)
-on public.profiles to authenticated;
-grant insert (id, username, display_name)
 on public.profiles to authenticated;
 grant update (username, display_name)
 on public.profiles to authenticated;
 grant select on public.player_data to authenticated;
-revoke insert, update, delete on public.player_data from authenticated;
 grant select on public.friend_requests to authenticated;
 grant insert (sender_id, receiver_id, status) on public.friend_requests to authenticated;
 grant update (status) on public.friend_requests to authenticated;
-revoke delete on public.friend_requests from authenticated;
 grant select, delete on public.friendships to authenticated;
 
 drop policy if exists "Signed-in users can find public profiles" on public.profiles;
