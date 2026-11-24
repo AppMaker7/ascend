@@ -130,8 +130,12 @@ grant insert (id, username, display_name)
 on public.profiles to authenticated;
 grant update (username, display_name)
 on public.profiles to authenticated;
-grant select, insert, update, delete on public.player_data to authenticated;
-grant select, insert, update, delete on public.friend_requests to authenticated;
+grant select on public.player_data to authenticated;
+revoke insert, update, delete on public.player_data from authenticated;
+grant select on public.friend_requests to authenticated;
+grant insert (sender_id, receiver_id, status) on public.friend_requests to authenticated;
+grant update (status) on public.friend_requests to authenticated;
+revoke delete on public.friend_requests from authenticated;
 grant select, delete on public.friendships to authenticated;
 
 drop policy if exists "Signed-in users can find public profiles" on public.profiles;
@@ -195,5 +199,50 @@ drop policy if exists "Either friend can remove the friendship" on public.friend
 create policy "Either friend can remove the friendship"
 on public.friendships for delete to authenticated
 using (auth.uid() = user_a or auth.uid() = user_b);
+
+-- Save a complete player snapshot and update the public rank fields atomically.
+-- The caller can only write their own row; rank is derived from XP on the server.
+create or replace function public.save_player_state(p_data jsonb, p_total_xp bigint)
+returns void
+language plpgsql
+security definer
+set search_path = ''
+as $
+declare
+  v_user_id uuid := auth.uid();
+  v_total bigint := greatest(coalesce(p_total_xp, 0), 0);
+  v_tier integer;
+  v_division integer;
+  v_names text[] := array['Starter','Bronze','Silver','Gold','Platinum','Diamond','Champion','Ascendant','Elite','Legend'];
+  v_rank text;
+  v_division_name text;
+begin
+  if v_user_id is null then
+    raise exception 'Not authenticated';
+  end if;
+  if p_data is null or jsonb_typeof(p_data) <> 'object' then
+    raise exception 'Player data must be a JSON object';
+  end if;
+  if pg_column_size(p_data) > 200000 then
+    raise exception 'Player data is too large';
+  end if;
+
+  v_tier := least(9, (v_total / 1000)::integer);
+  v_division := least(3, ((v_total % 1000) / 250)::integer);
+  v_rank := v_names[v_tier + 1];
+  v_division_name := (array['I','II','III','IV'])[v_division + 1];
+
+  insert into public.player_data (user_id, data)
+  values (v_user_id, p_data)
+  on conflict (user_id) do update set data = excluded.data;
+
+  update public.profiles
+  set total_xp = v_total, rank_name = v_rank, rank_division = v_division_name
+  where id = v_user_id;
+end;
+$;
+
+revoke all on function public.save_player_state(jsonb, bigint) from public;
+grant execute on function public.save_player_state(jsonb, bigint) to authenticated;
 
 -- No direct client insert/update policy on friendships: acceptance trigger owns creation.
