@@ -1,29 +1,32 @@
 # Ascend
 
-A sleek, mobile-first self-improvement dashboard prototype.
+A mobile-first self-improvement RPG that combines habit building, focus tools, workout tracking, and personal progression.
 
-## Included
-- Daily quests with XP rewards and progress tracking
-- Rank progression and lifetime XP
-- Habit list with weekly check-in indicators
-- Focus timer
-- Responsive mobile-first layout
-- Local browser persistence and basic PWA setup
+## Current features
+- Daily quests with XP rewards and the main Ascend rank ladder
+- Habit check-ins and weekly rhythm indicators
+- Focus timer (planning tool only; it does not block other Android apps)
+- Personalized workout setup based on goals, experience, equipment, schedule, and session length
+- Set-by-set workout logging with reps and optional dumbbell working weight
+- Separate workout ranks, exercise LP, performance scores, and best logged results
+- Workout history and seven-day activity overview
+- Adaptive on-device coach insights based on quests, habits, and training history
+- Supabase email/password accounts, private cloud saves, and username-based friends
+- Mobile-first layout and PWA cache
 
-## Current limitations
-This is a browser-based prototype. It does not yet create accounts, sync data between devices, block Android apps, or verify push-ups with the camera. Actual Android app blocking requires a native Android companion app and user-granted permissions. Camera-based exercise tracking is a separate feature to implement and test carefully.
+## Coaching and AI status
+The current coach uses transparent, on-device rules and the player's own logged data. It is **not connected to a live AI model yet**. A real AI coach must be called through a secure server-side function; any model API key must be stored as a server secret and must never be placed in browser code.
+
+## Important limitations
+- Workout sets, reps, and weights are manually logged; Ascend does not verify form or count repetitions with the camera.
+- Workout scores are personal progress indicators, not medical measurements or comparisons against other people's bodies.
+- Focus Mode is a timer and planning aid. A browser-based website cannot block or monitor other Android apps.
+- Ascend is a general wellness tool, not a medical device or a substitute for qualified coaching or healthcare.
 
 ## Run
-Open index.html in a browser or deploy the repository with GitHub Pages.
+Open `index.html` in a browser or deploy the repository with GitHub Pages.
 
-
-## Accounts and friends
-- Supabase email/password sign-up and login
-- Username-based friend requests and rank comparison
-- Private per-user cloud save through a server-validated RPC
-- Row Level Security policies for profiles, player data, friend requests, and friendships
-
-### Supabase setup
+## Supabase setup
 1. Create a separate Supabase project for Ascend.
 2. Open the SQL Editor in that project.
 3. Run the complete script in [supabase/schema.sql](./supabase/schema.sql).
