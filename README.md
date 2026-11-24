@@ -19,7 +19,17 @@ A mobile-first self-improvement RPG that combines habit building, focus tools, w
 - Mobile-first layout and PWA cache
 
 ## Coaching and AI status
-The current coach uses transparent, on-device rules and the player's own logged data. It is **not connected to a live AI model yet**. A real AI coach must be called through a secure server-side function; any model API key must be stored as a server secret and must never be placed in browser code.
+Ascend includes an AI chat interface and a Supabase Edge Function at [supabase/functions/ascend-coach/index.ts](./supabase/functions/ascend-coach/index.ts). The function verifies the signed-in Supabase user and calls OpenAI server-side. The OpenAI API key is read only from the `OPENAI_API_KEY` Edge Function secret; it is never shipped to the browser.
+
+### Enable the AI coach
+1. In the Ascend Supabase project, open **Edge Functions** and create a function named `ascend-coach`.
+2. Deploy the code from [supabase/functions/ascend-coach/index.ts](./supabase/functions/ascend-coach/index.ts). You can also deploy it with the Supabase CLI from the repository using `supabase functions deploy ascend-coach`.
+3. In Supabase **Edge Function Secrets**, add `OPENAI_API_KEY` with your OpenAI API key as its value. Do not put the key in GitHub, the app, or this chat.
+4. Confirm the Edge Function has JWT verification enabled. The repository's `supabase/config.toml` enables it.
+5. Sign in to Ascend, open the Coach card, and choose **Ask AI coach**.
+
+OpenAI API usage is billed separately from a ChatGPT subscription and may incur charges. Review API billing and usage limits with a parent or guardian before enabling paid API usage. Never share the API key.
+
 
 ## Important limitations
 - Workout sets, reps, and weights are manually logged; Ascend does not verify form or count repetitions with the camera.
