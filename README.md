@@ -15,3 +15,19 @@ This is a browser-based prototype. It does not yet create accounts, sync data be
 
 ## Run
 Open index.html in a browser or deploy the repository with GitHub Pages.
+
+
+## Accounts and friends
+- Supabase email/password sign-up and login
+- Username-based friend requests and rank comparison
+- Private per-user cloud save through a server-validated RPC
+- Row Level Security policies for profiles, player data, friend requests, and friendships
+
+### Supabase setup
+1. Create a separate Supabase project for Ascend.
+2. Open the SQL Editor in that project.
+3. Run the complete script in [supabase/schema.sql](./supabase/schema.sql).
+4. In Supabase Authentication URL Configuration, set the Site URL to the deployed Ascend Pages URL and allow that same URL as a redirect.
+5. Email confirmation may need to be completed before the first login.
+
+The browser uses only the project's publishable key. Never put a database password or service-role key in this repository.
