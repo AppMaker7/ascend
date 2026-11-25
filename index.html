@@ -223,7 +223,54 @@ html.surface-graphite .command-center{background:radial-gradient(ellipse at 92% 
 .backup-note{font-size:10px;color:var(--muted)}
 .data-backup-card{background:linear-gradient(145deg,#171d18,#111511)}
 @media(max-width:560px){.backup-actions{align-items:stretch;flex-direction:column}.backup-actions .btn{width:100%}}
-</style></head><body><div class="app">
+</style><style id="ascend-workout-vertical-stack-fix">
+/* Workout tracker: exercises stack vertically; each set stays a horizontal row. */
+#workoutModal #workoutExercises{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+  flex-wrap:nowrap!important;
+  gap:12px!important;
+  width:100%!important;
+  min-width:0!important;
+}
+#workoutModal #workoutExercises>.workout-exercise{
+  display:block!important;
+  flex:0 0 auto!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+}
+#workoutModal .workout-set-list{
+  display:flex!important;
+  flex-direction:column!important;
+  flex-wrap:nowrap!important;
+  gap:7px!important;
+  width:100%!important;
+  min-width:0!important;
+}
+#workoutModal .workout-set{
+  display:grid!important;
+  grid-template-columns:48px minmax(0,1fr) 70px!important;
+  align-items:center!important;
+  width:100%!important;
+  min-width:0!important;
+  gap:7px!important;
+  box-sizing:border-box!important;
+}
+#workoutModal .workout-set.has-load{
+  grid-template-columns:42px minmax(0,1fr) minmax(0,.85fr) 70px!important;
+}
+#workoutModal .workout-set input,
+#workoutModal .workout-set button{min-width:0!important;width:100%!important;box-sizing:border-box!important}
+@media(max-width:380px){
+  #workoutModal .workout-set{grid-template-columns:42px minmax(0,1fr) 66px!important;gap:5px!important;padding:7px 6px!important}
+  #workoutModal .workout-set.has-load{grid-template-columns:36px minmax(0,1fr) minmax(0,.8fr) 62px!important}
+  #workoutModal .workout-set-label{font-size:9px!important}
+  #workoutModal .workout-set-toggle{font-size:9px!important;padding:7px 3px!important}
+}
+</style>
+</head><body><div class="app">
 <header class="top"><div class="brand"><div class="mark"><img src="./logo.svg" alt="" width="40" height="40"></div><span>Ascend</span></div><div class="top-right"><span class="date" id="todayDate"></span><div class="avatar">U</div></div></header>
 <div class="layout"><aside class="sidebar"><div class="nav-label">ASCEND</div><button class="nav active" data-view="home"><span class="ico">⌂</span>Home</button><button class="nav" data-view="coach"><span class="ico">✧</span>Coach</button><button class="nav" data-view="profile"><span class="ico">◎</span>Profile</button><button class="nav" data-view="focus"><span class="ico">◉</span>Focus</button><button class="nav" data-view="workout"><span class="ico">✦</span>Training</button><button class="nav" data-view="settings"><span class="ico">⚙</span>Settings</button></aside><main>
 <section class="view active" id="home"><div class="page-head"><div><div class="eyebrow">YOUR DAILY OVERVIEW</div><h1>Make today count.</h1><div class="sub">Small steps. Real progress.</div></div><button class="btn primary" id="addQuest">＋ Add quest</button></div>
