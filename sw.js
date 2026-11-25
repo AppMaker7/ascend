@@ -1,4 +1,4 @@
-const CACHE='ascend-v64';
+const CACHE='ascend-v65';
 const FILES=['./','./index.html','./manifest.webmanifest'];
 self.addEventListener('install',e=>e.waitUntil((async()=>{
   const cache=await caches.open(CACHE);
