@@ -223,6 +223,31 @@ button:focus-visible,input:focus-visible,select:focus-visible,.nav:focus-visible
   }
 }
 </style>
+<style id="workout-wide-card-layout">
+/* Each exercise is a full-width horizontal card, stacked vertically. */
+#workoutExercises.workout-exercises{
+  display:grid !important;
+  grid-template-columns:minmax(0,1fr) !important;
+  grid-auto-flow:row !important;
+  grid-auto-columns:auto !important;
+  gap:12px !important;
+  width:100% !important;
+  min-width:0 !important;
+  overflow:visible !important;
+  padding:0 !important;
+  margin:0 !important;
+}
+#workoutExercises.workout-exercise,
+#workoutExercises > .workout-exercise{
+  display:block !important;
+  width:100% !important;
+  min-width:0 !important;
+  max-width:none !important;
+  flex:none !important;
+  box-sizing:border-box !important;
+  height:auto !important;
+}
+</style>
 </head><body><div class="app">
 <header class="top"><div class="brand"><div class="mark"><img src="./logo.svg" alt="" width="40" height="40"></div><span>Ascend</span></div><div class="top-right"><span class="date" id="todayDate"></span><div class="avatar">U</div></div></header>
 <div class="layout"><aside class="sidebar"><div class="nav-label">ASCEND</div><button class="nav active" data-view="home"><span class="ico">⌂</span>Home</button><button class="nav" data-view="coach"><span class="ico">✧</span>Coach</button><button class="nav" data-view="profile"><span class="ico">◎</span>Profile</button><button class="nav" data-view="focus"><span class="ico">◉</span>Focus</button><button class="nav" data-view="workout"><span class="ico">✦</span>Training</button><button class="nav" data-view="settings"><span class="ico">⚙</span>Settings</button></aside><main>
