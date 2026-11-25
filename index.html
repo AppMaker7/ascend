@@ -59,6 +59,46 @@ button:focus-visible,input:focus-visible,select:focus-visible,.nav:focus-visible
 .mobile-nav .nav .nav-icon{display:block;width:17px;height:17px;flex:none;overflow:visible}
 .mobile-nav .nav-label-text{font-size:8.5px;line-height:1.1;letter-spacing:0}
 @media(max-width:390px){.mobile-nav .nav .nav-icon{width:16px;height:16px}.mobile-nav .nav-label-text{font-size:8px}}
+
+/* Phone-first workout sheet: use the screen width, not a desktop dialog scaled down. */
+@media (max-width:760px){
+  html,body{max-width:100%;overflow-x:hidden}
+  .modal-back#workoutModal{
+    position:fixed!important;inset:0!important;
+    display:none;align-items:flex-end!important;justify-content:center!important;
+    width:100vw;height:100vh;height:100dvh;
+    padding:0!important;margin:0!important;
+    overflow:hidden!important;overscroll-behavior:none;
+    background:rgba(0,0,0,.78);z-index:10000;
+  }
+  .modal-back#workoutModal.show{display:flex!important}
+  #workoutModal>.workout-modal.workout-tracker{
+    position:relative!important;inset:auto!important;
+    display:block!important;flex:0 1 auto!important;
+    width:100%!important;min-width:0!important;max-width:100%!important;
+    height:auto!important;max-height:92vh!important;max-height:92dvh!important;
+    margin:0!important;padding:18px 15px max(18px,env(safe-area-inset-bottom))!important;
+    border-radius:22px 22px 0 0!important;
+    border-left:0!important;border-right:0!important;border-bottom:0!important;
+    box-sizing:border-box!important;overflow-x:hidden!important;overflow-y:auto!important;
+    overscroll-behavior:contain!important;transform:none!important;
+    scrollbar-width:thin;
+  }
+  #workoutModal .workout-head{gap:8px;align-items:flex-start}
+  #workoutModal .workout-head>div{min-width:0;flex:1}
+  #workoutModal .workout-head h2{font-size:20px;line-height:1.2}
+  #workoutModal .workout-summary{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+  #workoutModal .workout-summary>div{min-width:0;padding:9px 7px}
+  #workoutModal .workout-summary strong{font-size:16px}
+  #workoutModal .workout-set{grid-template-columns:44px minmax(0,1fr) 68px!important;gap:6px}
+  #workoutModal input,#workoutModal button{max-width:100%;min-width:0}
+}
+@media(max-width:380px){
+  #workoutModal>.workout-modal.workout-tracker{padding-left:12px!important;padding-right:12px!important}
+  #workoutModal .workout-set{grid-template-columns:40px minmax(0,1fr) 62px!important;gap:5px}
+  #workoutModal .workout-set-toggle{padding:7px 4px;font-size:9px}
+}
+
 </style></head><body><div class="app">
 <header class="top"><div class="brand"><div class="mark"><img src="./logo.svg" alt="" width="40" height="40"></div><span>Ascend</span></div><div class="top-right"><span class="date" id="todayDate"></span><div class="avatar">U</div></div></header>
 <div class="layout"><aside class="sidebar"><div class="nav-label">ASCEND</div><button class="nav active" data-view="home"><span class="ico">⌂</span>Home</button><button class="nav" data-view="coach"><span class="ico">✧</span>Coach</button><button class="nav" data-view="profile"><span class="ico">◎</span>Profile</button><button class="nav" data-view="focus"><span class="ico">◉</span>Focus</button><button class="nav" data-view="workout"><span class="ico">✦</span>Training</button><button class="nav" data-view="settings"><span class="ico">⚙</span>Settings</button></aside><main>
