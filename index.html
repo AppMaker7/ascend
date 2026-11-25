@@ -150,6 +150,40 @@ button:focus-visible,input:focus-visible,select:focus-visible,.nav:focus-visible
   }
 }
 
+
+/* Workout exercises: clean horizontal cards instead of a tall stack of narrow strips. */
+#workoutExercises.workout-exercises{
+  display:grid;
+  grid-auto-flow:column;
+  grid-auto-columns:minmax(290px, min(82vw, 340px));
+  grid-template-rows:auto;
+  gap:12px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  padding:2px 2px 12px;
+  margin:0 -2px 8px;
+  scroll-snap-type:x mandatory;
+  overscroll-behavior-x:contain;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:thin;
+}
+#workoutExercises .workout-exercise{
+  min-width:0;
+  height:100%;
+  box-sizing:border-box;
+  scroll-snap-align:start;
+}
+#workoutExercises .workout-exercise-top{min-width:0}
+#workoutExercises .workout-exercise-title{overflow-wrap:anywhere}
+@media(min-width:900px){
+  #workoutExercises.workout-exercises{
+    grid-auto-columns:minmax(0,1fr);
+    grid-auto-flow:row;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    overflow:visible;
+  }
+}
+
 </style></head><body><div class="app">
 <header class="top"><div class="brand"><div class="mark"><img src="./logo.svg" alt="" width="40" height="40"></div><span>Ascend</span></div><div class="top-right"><span class="date" id="todayDate"></span><div class="avatar">U</div></div></header>
 <div class="layout"><aside class="sidebar"><div class="nav-label">ASCEND</div><button class="nav active" data-view="home"><span class="ico">⌂</span>Home</button><button class="nav" data-view="coach"><span class="ico">✧</span>Coach</button><button class="nav" data-view="profile"><span class="ico">◎</span>Profile</button><button class="nav" data-view="focus"><span class="ico">◉</span>Focus</button><button class="nav" data-view="workout"><span class="ico">✦</span>Training</button><button class="nav" data-view="settings"><span class="ico">⚙</span>Settings</button></aside><main>
