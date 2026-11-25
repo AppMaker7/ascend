@@ -342,6 +342,14 @@ html.surface-graphite .command-center{background:radial-gradient(ellipse at 92% 
 #workoutModal #workoutExercises{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:10px!important;width:100%!important}
 #workoutModal #workoutExercises>.workout-exercise{display:block!important;flex:0 0 auto!important;width:100%!important;max-width:none!important;min-width:0!important}
 </style>
+
+<style id="ascend-workout-session-vertical-layout">
+/* The workout popup is a single-column page, never a horizontal card strip. */
+#workoutModal #workoutSession{display:flex!important;flex-direction:column!important;align-items:stretch!important;justify-content:flex-start!important;gap:14px!important;width:100%!important;max-width:100%!important;min-width:0!important;overflow-x:hidden!important;box-sizing:border-box!important}
+#workoutModal #workoutSession>*{display:block!important;position:relative!important;flex:0 0 auto!important;grid-column:1/-1!important;float:none!important;width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box!important;margin-left:0!important;margin-right:0!important}
+#workoutModal #workoutSession .body-map-card,#workoutModal #workoutSession .assessment-card,#workoutModal #workoutSession .workout-rank-panel,#workoutModal #workoutSession .workout-record-card{width:100%!important;max-width:100%!important;min-width:0!important}
+#workoutModal .workout-modal{width:min(560px,100%)!important;max-width:100%!important;overflow-x:hidden!important;box-sizing:border-box!important}
+</style>
 </head><body><div class="app">
 <header class="top"><div class="brand"><div class="mark"><img src="./logo.svg" alt="" width="40" height="40"></div><span>Ascend</span></div><div class="top-right"><span class="date" id="todayDate"></span><div class="avatar">U</div></div></header>
 <div class="layout"><aside class="sidebar"><div class="nav-label">ASCEND</div><button class="nav active" data-view="home"><span class="ico">⌂</span>Home</button><button class="nav" data-view="coach"><span class="ico">✧</span>Coach</button><button class="nav" data-view="profile"><span class="ico">◎</span>Profile</button><button class="nav" data-view="focus"><span class="ico">◉</span>Focus</button><button class="nav" data-view="workout"><span class="ico">✦</span>Training</button><button class="nav" data-view="settings"><span class="ico">⚙</span>Settings</button></aside><main>
